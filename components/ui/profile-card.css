@@ -1,0 +1,292 @@
+:root{
+  --rotateX:0deg;
+  --rotateY:0deg;
+  --mouseX:50%;
+  --mouseY:50%;
+}
+
+.profile-wrapper{
+  position:relative;
+  width:420px;
+  height:560px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation:floatCard 6s ease-in-out infinite;
+}
+
+.profile-glow{
+  position:absolute;
+  width:480px;
+  height:480px;
+  border-radius:50%;
+  background:
+  radial-gradient(circle,
+  rgba(99,102,241,.45),
+  rgba(168,85,247,.25),
+  transparent 70%);
+  filter:blur(70px);
+  animation:glowPulse 5s ease-in-out infinite;
+}
+
+.profile-card{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  border-radius:32px;
+
+  transform-style:preserve-3d;
+  transform:
+      perspective(1200px)
+      rotateX(var(--rotateX))
+      rotateY(var(--rotateY));
+
+  transition:
+      transform .18s ease-out,
+      box-shadow .35s ease;
+
+  background:rgba(255,255,255,.04);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+      0 30px 80px rgba(0,0,0,.45),
+      0 0 60px rgba(99,102,241,.18);
+
+  cursor:pointer;
+}
+
+.profile-card:hover{
+
+  box-shadow:
+      0 40px 120px rgba(99,102,241,.45),
+      0 0 100px rgba(168,85,247,.30);
+
+}
+
+.profile-image{
+
+  object-fit:cover;
+
+  object-position:center;
+
+  transition:
+      transform .6s ease,
+      filter .6s ease;
+
+  user-select:none;
+}
+
+.profile-card:hover .profile-image{
+
+    transform:scale(1.06);
+
+    filter:
+      brightness(1.05)
+      contrast(1.08)
+      saturate(1.08);
+
+}
+
+.profile-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    pointer-events:none;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,.22),
+    transparent 22%,
+    transparent 55%,
+    rgba(255,255,255,.06)
+    );
+
+}
+
+.profile-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:3;
+
+    opacity:0;
+
+    transition:opacity .35s ease;
+
+    pointer-events:none;
+
+    background:
+    radial-gradient(
+
+        circle at var(--mouseX) var(--mouseY),
+
+        rgba(255,255,255,.38),
+
+        transparent 28%
+
+    );
+
+}
+
+.profile-card:hover::after{
+
+    opacity:1;
+
+}
+
+.profile-shine{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:4;
+
+    pointer-events:none;
+
+    mix-blend-mode:screen;
+
+    background:
+    linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,.20),
+        transparent 80%
+    );
+
+    background-size:250% 250%;
+
+    animation:shineMove 7s linear infinite;
+
+}
+
+@keyframes shineMove{
+
+0%{
+
+background-position:-250% 0;
+
+}
+
+100%{
+
+background-position:250% 0;
+
+}
+
+}
+
+@keyframes floatCard{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-14px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes glowPulse{
+
+0%{
+
+transform:scale(1);
+
+opacity:.55;
+
+}
+
+50%{
+
+transform:scale(1.12);
+
+opacity:.9;
+
+}
+
+100%{
+
+transform:scale(1);
+
+opacity:.55;
+
+}
+
+}
+
+@media(max-width:1024px){
+
+.profile-wrapper{
+
+width:360px;
+
+height:500px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.profile-wrapper{
+
+width:320px;
+
+height:440px;
+
+}
+
+.profile-glow{
+
+width:360px;
+
+height:360px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.profile-wrapper{
+
+width:280px;
+
+height:380px;
+
+}
+
+.profile-card{
+
+border-radius:24px;
+
+}
+
+}
