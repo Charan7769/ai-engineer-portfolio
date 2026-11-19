@@ -2,6 +2,11 @@
 @import "./animations.css";
 @import "./utilities.css";
 
+/* The application theme is controlled by the `.dark` class that the theme
+   provider toggles on <html>, so dark: utilities must follow that class instead
+   of the operating-system preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --color-border: var(--border);
     --color-input: var(--input);
@@ -113,4 +118,28 @@ body {
 ::selection {
     background-color: rgba(99, 102, 241, 0.3);
     color: inherit;
+}
+
+/* Visitors who ask for reduced motion get no smooth scrolling or decorative
+   animation. Framer Motion honours the same preference through
+   <MotionConfig reducedMotion="user"> in providers/app-providers.tsx. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Keep progress indicators visible as a state cue, just slower. */
+    .animate-spin {
+        animation-duration: 1.5s !important;
+        animation-iteration-count: infinite !important;
+    }
 }

@@ -7,6 +7,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+async function readErrorMessage(res: Response): Promise<string> {
+    const fallback =
+        res.status === 503
+            ? "The contact form is not available right now."
+            : "Something went wrong while sending your message. Please try again.";
+
+    try {
+        const data: unknown = await res.json();
+
+        if (typeof data === "object" && data !== null && "message" in data) {
+            const { message } = data as { message?: unknown };
+            if (typeof message === "string" && message.trim().length > 0) return message;
+        }
+    } catch {
+        // The response body was not JSON; fall back to a status-based message.
+    }
+
+    return fallback;
+}
+
 export function ContactForm() {
     const [formData, setFormData] = useState<ContactFormData>({
         name: "",
@@ -45,6 +65,12 @@ export function ContactForm() {
             });
             setErrors(fieldErrors);
             setStatus("idle");
+
+            // Move the user straight to the first field that needs attention.
+            const firstInvalidField = validation.error.issues[0]?.path[0];
+            if (typeof firstInvalidField === "string") {
+                document.getElementById(firstInvalidField)?.focus();
+            }
             return;
         }
 
@@ -56,26 +82,30 @@ export function ContactForm() {
             });
 
             if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(errorData.message || "Failed to submit form");
+                throw new Error(await readErrorMessage(res));
             }
 
             setStatus("success");
             setFormData({ name: "", email: "", subject: "", message: "" });
         } catch (err) {
-            const error = err as Error;
             setStatus("error");
-            setErrorMessage(error.message || "Something went wrong. Please try again.");
+            setErrorMessage(
+                err instanceof TypeError
+                    ? "Network error. Please check your connection and try again."
+                    : err instanceof Error
+                        ? err.message
+                        : "Something went wrong. Please try again."
+            );
         }
     };
 
     if (status === "success") {
         return (
-            <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+            <div role="status" aria-live="polite" className="flex flex-col items-center justify-center py-12 text-center gap-4">
                 <CheckCircle className="text-secondary w-16 h-16 animate-bounce" />
-                <h4 className="text-xl font-bold text-foreground">Message Sent!</h4>
+                <h4 className="text-xl font-bold text-foreground">Message Submitted</h4>
                 <p className="text-sm text-muted-foreground max-w-sm">
-                    Thank you for reaching out! Your message has been received, and I will get back to you shortly.
+                    Thank you for reaching out. Your message was accepted by the email service and is queued for delivery. I will reply to the address you provided.
                 </p>
                 <Button onClick={() => setStatus("idle")} variant="outline" className="mt-4 rounded-full">
                     Send another message
@@ -87,7 +117,7 @@ export function ContactForm() {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {status === "error" && (
-                <div className="p-4 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg flex items-center gap-2">
+                <div role="alert" className="p-4 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg flex items-center gap-2">
                     <AlertCircle size={16} />
                     <span>{errorMessage}</span>
                 </div>
@@ -104,9 +134,11 @@ export function ContactForm() {
                     onChange={handleChange}
                     placeholder=""
                     disabled={status === "submitting"}
+                    aria-invalid={errors.name ? true : undefined}
+                    aria-describedby={errors.name ? "name-error" : undefined}
                     className={errors.name ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.name && <span className="text-xs text-destructive">{errors.name}</span>}
+                {errors.name && <span id="name-error" className="text-xs text-destructive">{errors.name}</span>}
             </div>
 
             {/* Email */}
@@ -120,9 +152,11 @@ export function ContactForm() {
                     onChange={handleChange}
                     placeholder="your.email@example.com"
                     disabled={status === "submitting"}
+                    aria-invalid={errors.email ? true : undefined}
+                    aria-describedby={errors.email ? "email-error" : undefined}
                     className={errors.email ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.email && <span className="text-xs text-destructive">{errors.email}</span>}
+                {errors.email && <span id="email-error" className="text-xs text-destructive">{errors.email}</span>}
             </div>
 
             {/* Subject */}
@@ -136,9 +170,11 @@ export function ContactForm() {
                     onChange={handleChange}
                     placeholder="Subject"
                     disabled={status === "submitting"}
+                    aria-invalid={errors.subject ? true : undefined}
+                    aria-describedby={errors.subject ? "subject-error" : undefined}
                     className={errors.subject ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.subject && <span className="text-xs text-destructive">{errors.subject}</span>}
+                {errors.subject && <span id="subject-error" className="text-xs text-destructive">{errors.subject}</span>}
             </div>
 
             {/* Message */}
@@ -152,9 +188,11 @@ export function ContactForm() {
                     placeholder="Write your message here..."
                     disabled={status === "submitting"}
                     rows={5}
+                    aria-invalid={errors.message ? true : undefined}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     className={errors.message ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.message && <span className="text-xs text-destructive">{errors.message}</span>}
+                {errors.message && <span id="message-error" className="text-xs text-destructive">{errors.message}</span>}
             </div>
 
             <Button type="submit" disabled={status === "submitting"} className="w-full mt-2 rounded-full cursor-pointer flex gap-2">

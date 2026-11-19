@@ -2,10 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { SectionContainer } from "@/components/shared/section-container";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { projects } from "@/data/projects-data";
+import { publishedProjects } from "@/data/projects";
 import { Project } from "@/types/project";
 import { FeaturedProject } from "./featured-project";
 import { ProjectCard } from "./project-card";
@@ -17,7 +16,7 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
+    return publishedProjects.filter((project) => {
       if (activeFilter === "All") return true;
       return project.category === activeFilter;
     });

@@ -9,7 +9,7 @@ export function ProjectFeatures({ features }: ProjectFeaturesProps) {
   if (!features.length) return null;
 
   return (
-    <ul className="space-y-2.5" aria-label="Project highlights">
+    <ul className="space-y-2.5" aria-label="Project key features">
       {features.map((feature, index) => (
         <motion.li
           key={feature}

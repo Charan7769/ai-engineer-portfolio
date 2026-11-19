@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "./theme-provider";
 
 interface AppProvidersProps {
@@ -10,7 +11,10 @@ interface AppProvidersProps {
 export function AppProviders({ children }: AppProvidersProps) {
     return (
         <ThemeProvider>
-            {children}
+            {/* "user" makes Framer Motion drop transform/opacity animations for
+                visitors whose OS asks for reduced motion, without changing the
+                experience for everyone else. */}
+            <MotionConfig reducedMotion="user">{children}</MotionConfig>
         </ThemeProvider>
     );
 }

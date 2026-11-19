@@ -1,92 +1,82 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { SectionContainer } from "@/components/shared/section-container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { FadeIn } from "@/components/animations/fade-in";
 import { StaggerContainer } from "@/components/animations/stagger-container";
-import { skillsData } from "@/data/skills";
+import { skillsData, skillCategories } from "@/data/skills";
 import { cn } from "@/lib/utils";
 
-type Category =
-  | "Programming, DSA & Databases"
-  | "AI & Machine Learning"
-  | "Generative AI"
-  | "Developer Tools";
+const tiers = [
+    { id: "core", label: "Core", dot: "bg-primary" },
+    { id: "project", label: "Used in projects", dot: "bg-secondary" },
+    { id: "familiar", label: "Familiar", dot: "bg-muted-foreground" },
+] as const;
 
 export function Skills() {
-  const categories: Category[] = [
-    "Programming, DSA & Databases",
-    "AI & Machine Learning",
-    "Generative AI",
-    "Developer Tools",
-  ];
+    return (
+        <SectionContainer id="skills">
+            <SectionHeading
+                badge="Skills"
+                title="Technical Skills"
+                subtitle="Grouped by discipline, with the context each technology has actually been used in. No percentage scores — the projects on this site are the evidence."
+            />
 
-  const [activeTab, setActiveTab] = useState<Category>(categories[0]);
-
-  const filteredSkills = skillsData.filter(
-    (skill) => skill.category === activeTab
-  );
-
-  return (
-    <SectionContainer id="skills">
-      <SectionHeading
-        badge="My Skills"
-        title="Technical Skills"
-        subtitle="A snapshot of the technologies, AI frameworks, programming languages, databases, and development tools I use to build intelligent applications and solve real-world problems."
-      />
-
-      {/* Tabs */}
-      <div className="flex justify-center mb-10">
-        <div className="flex flex-wrap justify-center gap-2 bg-muted/60 p-1.5 rounded-xl border border-border/40 shadow-inner">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveTab(cat)}
-              className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap",
-                activeTab === cat
-                  ? "bg-primary text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Skills Grid */}
-      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {filteredSkills.map((skill, index) => (
-          <FadeIn
-            key={skill.name}
-            direction="up"
-            delay={index * 0.05}
-            className="flex flex-col gap-2 p-4 rounded-xl border border-border/40 bg-card/35 backdrop-blur-sm"
-          >
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-foreground">
-                {skill.name}
-              </span>
-
-              <span className="font-mono text-sm text-muted-foreground">
-                {skill.level}%
-              </span>
+            {/* Tier legend */}
+            <div className="mb-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+                {tiers.map((tier) => (
+                    <span key={tier.id} className="inline-flex items-center gap-2">
+                        <span className={cn("h-1.5 w-1.5 rounded-full", tier.dot)} />
+                        {tier.label}
+                    </span>
+                ))}
             </div>
 
-            {/* Progress Bar */}
-            <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full animate-progress-load transition-all duration-700"
-                style={{ width: `${skill.level}%` }}
-              />
-            </div>
-          </FadeIn>
-        ))}
-      </StaggerContainer>
-    </SectionContainer>
-  );
+            <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {skillCategories.map((category) => {
+                    const skills = skillsData.filter((skill) => skill.category === category);
+                    if (!skills.length) return null;
+
+                    return (
+                        <FadeIn
+                            key={category}
+                            direction="up"
+                            className="rounded-2xl border border-border/50 bg-card p-6 shadow-sm"
+                        >
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                                {category}
+                            </h3>
+
+                            <ul className="mt-5 flex flex-col gap-4">
+                                {skills.map((skill) => (
+                                    <li key={skill.name} className="flex items-start gap-3">
+                                        <span
+                                            className={cn(
+                                                "mt-1.5 h-1.5 w-1.5 flex-none rounded-full",
+                                                skill.tier === "core" && "bg-primary",
+                                                skill.tier === "project" && "bg-secondary",
+                                                skill.tier === "familiar" && "bg-muted-foreground"
+                                            )}
+                                            aria-hidden="true"
+                                        />
+                                        <div>
+                                            <span className="text-sm font-semibold text-foreground">
+                                                {skill.name}
+                                            </span>
+                                            {skill.note ? (
+                                                <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
+                                                    {skill.note}
+                                                </span>
+                                            ) : null}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </FadeIn>
+                    );
+                })}
+            </StaggerContainer>
+        </SectionContainer>
+    );
 }
 
 export default Skills;

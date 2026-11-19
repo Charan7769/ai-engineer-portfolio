@@ -1,25 +1,24 @@
-export interface Project {
-    id: string;
-    slug: string;
-    title: string;
-    description: string;
-    longDescription?: string;
-    image: string;
-    tags: string[];
-    githubUrl?: string;
-    demoUrl?: string;
-    category: "Frontend" | "Backend" | "Fullstack" | "AI" | "Mobile";
-    featured?: boolean;
-}
+export type SkillCategory =
+  | "Programming Languages"
+  | "AI & Machine Learning"
+  | "Data & Analysis"
+  | "Databases & Backend"
+  | "Frameworks & Tools";
+
+export type SkillTier =
+  /** Used across most of the work in this portfolio. */
+  | "core"
+  /** Used to deliver specific projects. */
+  | "project"
+  /** Working familiarity rather than day-to-day use. */
+  | "familiar";
 
 export interface Skill {
   name: string;
-  level: number;
-  category:
-    | "Programming, DSA & Databases"
-    | "AI & Machine Learning"
-    | "Generative AI"
-    | "Developer Tools";
+  category: SkillCategory;
+  tier: SkillTier;
+  /** Optional short note describing where the skill was applied. */
+  note?: string;
 }
 
 export interface Education {
@@ -36,8 +35,11 @@ export interface Certificate {
     title: string;
     issuer: string;
     date: string;
-    url?: string;
-    image?: string;
+    status: "Completed" | "In Progress";
+    /** Only a URL that resolves to the actual credential. */
+    credentialUrl?: string;
+    /** Extra context shown with the entry, e.g. a verification caveat. */
+    note?: string;
 }
 
 export interface BlogPost {

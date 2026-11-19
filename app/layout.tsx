@@ -7,7 +7,7 @@ import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { constructMetadata } from "@/lib/metadata";
 import "@/app/globals.css";
 
-export const metadata: Metadata = constructMetadata();
+export const metadata: Metadata = constructMetadata({ path: "/" });
 
 export default function RootLayout({
   children,

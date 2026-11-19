@@ -9,7 +9,7 @@ export const educationData: Education[] = [
       "Computer Science & Engineering (Artificial Intelligence & Machine Learning)",
     school: "Nagarjuna College of Engineering and Technology",
     description:
-      "Currently pursuing my final year...",
+      "Final-year undergraduate study covering programming, data structures and algorithms, databases, machine learning, deep learning and computer vision. Project work in the programme produced the four applications documented on this site, including a computer-vision classifier trained on 5,837 fingerprint images.",
   },
 ];
 export default educationData;

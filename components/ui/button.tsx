@@ -26,7 +26,7 @@ export const Button = React.forwardRef<any, ButtonProps>(
     ref
 )=> {
         const classes = cn(
-            "inline-flex items-center justify-center font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-98 cursor-pointer select-none",
+            "inline-flex items-center justify-center font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] cursor-pointer select-none",
             // Variants
             variant === "solid" && "bg-primary hover:bg-primary/90 text-white shadow-md shadow-primary/20",
             variant === "outline" && "border border-border bg-transparent hover:bg-muted text-foreground",

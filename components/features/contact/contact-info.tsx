@@ -8,15 +8,14 @@ export function ContactInfo() {
             {/* Heading */}
             <div>
                 <h3 className="text-3xl font-bold text-primary">
-                    Let's Connect
+                    Contact Details
                 </h3>
 
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                    I'm a Final Year B.Tech (CSE - AI & ML) student passionate
-                    about Artificial Intelligence, Machine Learning,
-                    Generative AI, and AI Agents. I'm actively seeking
-                    internships, full-time opportunities, collaborative
-                    projects, and professional networking opportunities.
+                    Final-year B.Tech (CSE — AI &amp; ML) student working on
+                    machine learning and generative AI projects. Open to
+                    internships, graduate roles, and collaborative work on
+                    applied AI.
                 </p>
             </div>
 

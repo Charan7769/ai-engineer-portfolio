@@ -47,7 +47,7 @@ export function Hero() {
             {/* Heading */}
             <FadeIn direction="up" delay={0.1}>
               <h1 className="text-5xl font-extrabold tracking-tight lg:text-6xl">
-                Hi, I'm{" "}
+                Hi, I&apos;m{" "}
                 <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
                   Charan
                 </span>{" "}
@@ -58,10 +58,10 @@ export function Hero() {
             {/* Subtitle */}
             <FadeIn direction="up" delay={0.2}>
               <h2 className="text-3xl font-bold leading-tight">
-                AI Engineer
+                Aspiring AI / Machine Learning Engineer
                 <br />
                 <span className="text-primary">
-                  Machine Learning • Generative AI
+                  Machine Learning • Computer Vision • Generative AI
                 </span>
               </h2>
             </FadeIn>
@@ -69,11 +69,12 @@ export function Hero() {
             {/* Description */}
             <FadeIn direction="up" delay={0.3}>
               <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-                Final Year B.Tech student specializing in Computer Science
-                (Artificial Intelligence & Machine Learning), passionate about
-                building AI-powered applications, intelligent automation
-                systems, AI Agents, and scalable software solutions using modern
-                Machine Learning and Generative AI technologies.
+                I build practical AI applications — trained models,
+                computer-vision experiments and LLM-backed workflows — and ship
+                them as working software with Python, TypeScript and React.
+                Final-year B.Tech student in Computer Science (AI &amp; ML),
+                looking for internship and graduate roles where I can keep
+                building with machine learning.
               </p>
             </FadeIn>
 
@@ -98,15 +99,46 @@ export function Hero() {
 
                 <MagneticButton>
                   <Button
-                    href={siteConfig.resume}
+                    href="#contact"
                     variant="outline"
                     size="lg"
                     className="rounded-full border-2 px-8 py-6 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg"
                   >
-                    Download Resume
+                    Contact Me
 
-                    <Download size={18} className="ml-2" />
+                    <Mail size={18} className="ml-2" />
                   </Button>
+                </MagneticButton>
+
+                <MagneticButton>
+                  {siteConfig.resumeAvailable ? (
+                    <Button
+                      href={siteConfig.resume}
+                      variant="outline"
+                      size="lg"
+                      className="rounded-full border-2 px-8 py-6 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg"
+                    >
+                      Download Resume
+
+                      <Download size={18} className="ml-2" />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="lg"
+                      disabled
+                      aria-describedby="resume-unavailable-note"
+                      className="rounded-full border-2 px-8 py-6"
+                    >
+                      Resume Coming Soon
+
+                      <Download size={18} className="ml-2" />
+                    </Button>
+                  )}
+                  <span id="resume-unavailable-note" className="sr-only">
+                    The resume PDF has not been published yet.
+                  </span>
                 </MagneticButton>
 
               </div>
@@ -140,34 +172,6 @@ export function Hero() {
                 >
                   <Mail size={20} />
                 </a>
-
-              </div>
-            </FadeIn>
-
-            {/* Stats */}
-            <FadeIn direction="up" delay={0.6}>
-              <div className="mt-6 flex flex-wrap gap-10">
-
-                <div>
-                  <h3 className="text-3xl font-bold text-primary">3+</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Projects Built
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-3xl font-bold text-primary">5+</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Certifications
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-3xl font-bold text-primary">AI</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Career Focus
-                  </p>
-                </div>
 
               </div>
             </FadeIn>

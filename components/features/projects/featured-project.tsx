@@ -41,7 +41,8 @@ export function FeaturedProject({
         overflow-hidden
         rounded-[2rem]
         border
-        border-white/10
+        border-border
+        dark:border-white/10
         bg-white/70
         shadow-[0_30px_80px_-30px_rgba(15,23,42,0.45)]
         backdrop-blur-2xl
@@ -140,6 +141,10 @@ export function FeaturedProject({
               </motion.div>
             </div>
           </div>
+
+          <p className="mt-2 text-center text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            Concept mockup — not a product screenshot
+          </p>
         </motion.div>
 
         {/* ===========================
@@ -158,19 +163,19 @@ export function FeaturedProject({
             className="mb-8 flex flex-wrap gap-3"
           >
 
-            <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs font-semibold text-cyan-300">
+            <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs font-semibold text-cyan-700 dark:text-cyan-300">
               ⭐ Featured
             </span>
 
-            <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold text-violet-300">
+            <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold text-violet-700 dark:text-violet-300">
               {project.category}
             </span>
 
-            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-300">
+            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
               {project.status}
             </span>
 
-            <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-300">
+            <span className="rounded-full border border-border bg-muted/40 px-4 py-2 text-xs font-semibold text-muted-foreground">
               {project.year}
             </span>
 
@@ -191,7 +196,7 @@ export function FeaturedProject({
                 text-4xl
                 font-bold
                 tracking-tight
-                text-white
+                text-foreground
                 lg:text-5xl
               "
             >
@@ -203,7 +208,7 @@ export function FeaturedProject({
                 max-w-xl
                 text-lg
                 leading-8
-                text-slate-300
+                text-muted-foreground
               "
             >
               {project.shortDescription}
@@ -224,7 +229,7 @@ export function FeaturedProject({
           >
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-              <h4 className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">
+              <h4 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
                 Technology Stack
               </h4>
             </div>
@@ -245,7 +250,7 @@ export function FeaturedProject({
           >
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-              <h4 className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">
+              <h4 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
                 Key Features
               </h4>
             </div>
@@ -303,8 +308,10 @@ export function FeaturedProject({
                   min-w-[170px]
                   gap-2
                   rounded-xl
-                  border-white/15
-                  bg-white/5
+                  border-border
+                  dark:border-white/15
+                  bg-muted/40
+                  dark:bg-white/5
                   backdrop-blur-xl
                   transition-all
                   duration-300

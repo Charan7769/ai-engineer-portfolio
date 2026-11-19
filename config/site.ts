@@ -1,3 +1,34 @@
+/**
+ * Single source of truth for the production domain.
+ *
+ * The origin is read from NEXT_PUBLIC_SITE_URL only. No domain is hardcoded and
+ * no deployment URL is guessed: when the variable is missing or is not a valid
+ * http(s) URL, `siteUrl` is null and every consumer omits absolute URLs instead
+ * of emitting a localhost address into production output.
+ */
+function resolveSiteUrl(): string | null {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) return null;
+
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+    return parsed.origin;
+  } catch {
+    return null;
+  }
+}
+
+export const siteUrl = resolveSiteUrl();
+
+/** Absolute URL for a route, or undefined when no production origin is set. */
+export function absoluteUrl(path = "/"): string | undefined {
+  if (!siteUrl) return undefined;
+
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return normalized === "/" ? siteUrl : `${siteUrl}${normalized}`;
+}
+
 export const siteConfig = {
   name: "Ediga Charan",
 
@@ -5,8 +36,6 @@ export const siteConfig = {
 
   description:
     "B.Tech Computer Science (Artificial Intelligence & Machine Learning) student portfolio showcasing AI, Machine Learning, Generative AI, Computer Vision, and Full-Stack development projects.",
-
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://charan.dev",
 
   ogImage: "/portfolio.jpeg",
 
@@ -27,6 +56,10 @@ export const siteConfig = {
   medium: "",
 
   resume: "/resume.pdf",
+
+  // Flipped to true only once a real resume PDF is placed at `resume`.
+  // While false the download button is disabled instead of serving an empty file.
+  resumeAvailable: false,
 };
 
 export type SiteConfig = typeof siteConfig;

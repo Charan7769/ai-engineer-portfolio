@@ -24,7 +24,7 @@ export function ProjectCard({ project, onOpenDetails }: ProjectCardProps) {
       className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/70 p-3 shadow-[0_12px_50px_-24px_rgba(15,23,42,0.35)] backdrop-blur-xl dark:bg-slate-900/60"
     >
       <div className="relative overflow-hidden rounded-[1.2rem]">
-        <ProjectImage src={project.image} alt={project.title} className="h-60" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+        <ProjectImage src={project.image} alt={project.title} className="h-60" sizes="(max-width: 768px) 100vw, 50vw" />
         <div className="absolute inset-0 flex items-start justify-between p-8">
           <span className="rounded-full border border-white/15 bg-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
             {project.category}
@@ -40,6 +40,9 @@ export function ProjectCard({ project, onOpenDetails }: ProjectCardProps) {
             </button>
           </div>
         </div>
+        <span className="absolute bottom-3 left-3 rounded-full border border-white/20 bg-slate-950/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm">
+          Concept mockup
+        </span>
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-2 pt-4 sm:p-3">

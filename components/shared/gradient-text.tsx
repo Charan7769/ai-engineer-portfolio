@@ -16,8 +16,9 @@ export function GradientText({
         <span
             className={cn(
                 "font-bold bg-clip-text text-transparent bg-gradient-to-r",
-                variant === "purple-blue" && "from-violet-400 to-indigo-500",
-                variant === "emerald-teal" && "from-emerald-400 to-teal-500",
+                // Light theme uses the darker stops so headings keep AA contrast on white.
+                variant === "purple-blue" && "from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-400",
+                variant === "emerald-teal" && "from-emerald-700 to-teal-600 dark:from-emerald-400 dark:to-teal-400",
                 className
             )}
         >

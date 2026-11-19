@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { NavLinks } from "./nav-links";
 import { ThemeToggle } from "./theme-toggle";
@@ -14,6 +16,8 @@ export function Navbar() {
     const { scrolled } = useScroll();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const activeSection = useActiveSection(ACTIVE_SECTIONS);
+    const pathname = usePathname();
+    const isHomepage = pathname === "/";
 
     // Close mobile menu on resize
     useEffect(() => {
@@ -37,14 +41,22 @@ export function Navbar() {
         >
             <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 {/* Logo */}
-                <a href="#home" className="text-xl font-bold tracking-wider hover:opacity-85 transition-opacity">
-                    <span className="text-primary">&lt;</span>
-                    <span>{siteConfig.author}</span>
-                    <span className="text-primary"> /&gt;</span>
-                </a>
+                {isHomepage ? (
+                    <a href="#home" className="text-xl font-bold tracking-wider hover:opacity-85 transition-opacity">
+                        <span className="text-primary">&lt;</span>
+                        <span>{siteConfig.author}</span>
+                        <span className="text-primary"> /&gt;</span>
+                    </a>
+                ) : (
+                    <Link href="/" className="text-xl font-bold tracking-wider hover:opacity-85 transition-opacity">
+                        <span className="text-primary">&lt;</span>
+                        <span>{siteConfig.author}</span>
+                        <span className="text-primary"> /&gt;</span>
+                    </Link>
+                )}
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-6">
+                <div className="hidden md:flex items-center gap-3 lg:gap-6">
                     <NavLinks activeSection={activeSection} />
                     <div className="h-4 w-px bg-border/40" />
                     <ThemeToggle />

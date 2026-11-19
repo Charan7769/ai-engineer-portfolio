@@ -2,6 +2,7 @@ import React from "react";
 import { siteConfig } from "@/config/site";
 import { SocialIcons } from "./social-icons";
 import { FooterLinks } from "./footer-links";
+import { FooterLogo } from "./footer-logo";
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -11,11 +12,7 @@ export function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
                 {/* Left Side: Brand and Copyright */}
                 <div className="flex flex-col items-center md:items-start gap-2">
-                    <a href="#home" className="text-lg font-bold tracking-wider">
-                        <span className="text-primary">&lt;</span>
-                        <span>{siteConfig.author}</span>
-                        <span className="text-primary"> /&gt;</span>
-                    </a>
+                    <FooterLogo />
                     <p className="text-sm text-muted-foreground text-center md:text-left">
                         &copy; {currentYear} {siteConfig.name}. All rights reserved.
                     </p>
