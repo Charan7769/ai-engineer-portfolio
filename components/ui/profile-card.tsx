@@ -59,7 +59,8 @@ export default function ProfileCard() {
           src="/portfolio.jpeg"
           alt="Charan"
           width={430}
-          height={580}
+          height={434}
+          sizes="(max-width: 480px) 280px, (max-width: 768px) 320px, (max-width: 1024px) 360px, 420px"
           priority
           className="profile-image"
         />
