@@ -77,13 +77,24 @@ export default function ProjectsIndexPage() {
                             </div>
 
                             <div className="mt-6 border-t border-border/20 pt-4 flex gap-3">
-                                <Button href={`/projects/${project.slug}`} variant="outline" size="sm">
+                                <Button
+                                    href={`/projects/${project.slug}`}
+                                    variant="outline"
+                                    size="sm"
+                                    aria-label={`View details for ${project.title}`}
+                                >
                                     Details
                                 </Button>
                                 {project.liveDemo && (
-                                    <Button href={project.liveDemo} target="_blank" rel="noreferrer" size="sm">
+                                    <Button
+                                        href={project.liveDemo}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        size="sm"
+                                        aria-label={`Open live demo of ${project.title} (opens in a new tab)`}
+                                    >
                                         <span className="flex items-center gap-1.5">
-                                            Live <ExternalLink size={12} />
+                                            Live <ExternalLink size={12} aria-hidden="true" />
                                         </span>
                                     </Button>
                                 )}

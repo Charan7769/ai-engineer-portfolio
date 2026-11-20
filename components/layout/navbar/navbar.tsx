@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
@@ -18,6 +18,11 @@ export function Navbar() {
     const activeSection = useActiveSection(ACTIVE_SECTIONS);
     const pathname = usePathname();
     const isHomepage = pathname === "/";
+
+    // Stable callbacks: the mobile menu effect depends on onClose, so inline
+    // arrows would re-register it (and re-focus the first link) on every render.
+    const openMobileMenu = useCallback(() => setMobileMenuOpen(true), []);
+    const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
     // Close mobile menu on resize
     useEffect(() => {
@@ -65,8 +70,8 @@ export function Navbar() {
                 {/* Mobile Navigation */}
                 <MobileMenu
                     isOpen={mobileMenuOpen}
-                    onOpen={() => setMobileMenuOpen(true)}
-                    onClose={() => setMobileMenuOpen(false)}
+                    onOpen={openMobileMenu}
+                    onClose={closeMobileMenu}
                     activeSection={activeSection}
                 />
             </div>

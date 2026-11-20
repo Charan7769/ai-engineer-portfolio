@@ -6,6 +6,9 @@ import { Education } from "@/components/features/education/education";
 import { Projects } from "@/components/features/projects/projects";
 import { Certifications } from "@/components/features/certifications/certifications";
 import { Contact } from "@/components/features/contact/contact";
+import { constructMetadata } from "@/lib/metadata";
+
+export const metadata = constructMetadata({ path: "/" });
 
 export default function HomePage() {
   return (

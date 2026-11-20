@@ -33,7 +33,7 @@ export function NavLinks({
                 const isActive = isHomepage && activeSection === sectionId;
                 const href = isHomepage ? item.href : `/${item.href}`;
                 const linkClassName = cn(
-                    "text-sm font-medium transition-colors hover:text-primary relative py-1.5",
+                    "text-sm font-medium transition-colors hover:text-primary relative py-1.5 before:absolute before:inset-x-0 before:-inset-y-2 before:content-['']",
                     isActive ? "text-primary" : "text-muted-foreground",
                     orientation === "horizontal" && isActive && "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full"
                 );

@@ -39,13 +39,13 @@ export function Education() {
                   <span>{edu.period}</span>
                 </div>
 
-                <h2 className="text-2xl font-bold text-foreground">
+                <h3 className="text-2xl font-bold text-foreground">
                   {edu.degree}
-                </h2>
-
-                <h3 className="mt-2 text-lg font-semibold text-primary">
-                  {edu.branch}
                 </h3>
+
+                <h4 className="mt-2 text-lg font-semibold text-primary">
+                  {edu.branch}
+                </h4>
 
                 <p className="mt-1 font-medium text-foreground">
                   {edu.school}

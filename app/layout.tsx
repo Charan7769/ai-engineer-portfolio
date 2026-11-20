@@ -7,7 +7,11 @@ import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { constructMetadata } from "@/lib/metadata";
 import "@/app/globals.css";
 
-export const metadata: Metadata = constructMetadata({ path: "/" });
+/**
+ * Shared metadata only. Canonical and og:url are set per page (including "/"),
+ * so unmatched 404 responses are never given the homepage's canonical identity.
+ */
+export const metadata: Metadata = constructMetadata();
 
 export default function RootLayout({
   children,
@@ -22,8 +26,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary/20 transition-colors duration-300">
         <AppProviders>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-grow outline-none">
+            {children}
+          </main>
           <Footer />
           <ScrollToTop />
         </AppProviders>

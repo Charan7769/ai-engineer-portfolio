@@ -29,8 +29,32 @@ export function MobileMenu({
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
+                event.preventDefault();
                 onClose();
                 buttonRef.current?.focus();
+                return;
+            }
+
+            if (event.key !== "Tab" || !panelRef.current) return;
+
+            const focusable = Array.from(
+                panelRef.current.querySelectorAll<HTMLElement>(
+                    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                )
+            ).filter((element) => element.offsetParent !== null);
+
+            if (focusable.length === 0) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            const active = document.activeElement as HTMLElement | null;
+
+            if (event.shiftKey && (active === first || !panelRef.current.contains(active))) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && (active === last || !panelRef.current.contains(active))) {
+                event.preventDefault();
+                first.focus();
             }
         };
 
@@ -72,6 +96,9 @@ export function MobileMenu({
                 <div
                     ref={panelRef}
                     id={PANEL_ID}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Site navigation"
                     className={cn(
                         "fixed inset-x-0 top-16 z-40 bg-background/95 backdrop-blur-md border-b border-border p-6 shadow-xl animate-fade-in flex flex-col gap-6"
                     )}

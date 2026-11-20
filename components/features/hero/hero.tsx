@@ -152,25 +152,28 @@ export function Hero() {
                   href={siteConfig.github}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="GitHub profile (opens in a new tab)"
                   className="flex h-11 w-11 items-center justify-center rounded-full border bg-card transition-all hover:scale-110 hover:bg-primary hover:text-white"
                 >
-                  <Github size={20} />
+                  <Github size={20} aria-hidden="true" />
                 </a>
 
                 <a
                   href={siteConfig.linkedin}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="LinkedIn profile (opens in a new tab)"
                   className="flex h-11 w-11 items-center justify-center rounded-full border bg-card transition-all hover:scale-110 hover:bg-primary hover:text-white"
                 >
-                  <Linkedin size={20} />
+                  <Linkedin size={20} aria-hidden="true" />
                 </a>
 
                 <a
                   href={`mailto:${siteConfig.email}`}
+                  aria-label="Email Ediga Charan"
                   className="flex h-11 w-11 items-center justify-center rounded-full border bg-card transition-all hover:scale-110 hover:bg-primary hover:text-white"
                 >
-                  <Mail size={20} />
+                  <Mail size={20} aria-hidden="true" />
                 </a>
 
               </div>
@@ -192,8 +195,8 @@ export function Hero() {
      </div>
       {/* Scroll */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <a href="#about">
-          <ChevronDown className="h-7 w-7 text-primary" />
+        <a href="#about" aria-label="Scroll to About section">
+          <ChevronDown className="h-7 w-7 text-primary" aria-hidden="true" />
         </a>
       </div>
 

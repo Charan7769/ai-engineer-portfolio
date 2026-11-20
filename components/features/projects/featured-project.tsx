@@ -191,7 +191,7 @@ export function FeaturedProject({
             className="space-y-6"
           >
 
-            <h2
+            <h3
               className="
                 text-4xl
                 font-bold
@@ -201,7 +201,7 @@ export function FeaturedProject({
               "
             >
               {project.title}
-            </h2>
+            </h3>
 
             <p
               className="

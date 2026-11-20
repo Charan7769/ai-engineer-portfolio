@@ -143,3 +143,9 @@ body {
         animation-iteration-count: infinite !important;
     }
 }
+/* Keyboard focus: an explicit ring for links and buttons so focus stays visible
+   on the dark theme. Inputs and textareas already have their own ring styles. */
+:where(a, button, summary, [role="button"]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+}

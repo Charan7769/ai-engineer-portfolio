@@ -69,12 +69,25 @@ export function ProjectCard({ project, onOpenDetails }: ProjectCardProps) {
             </Button>
           ) : null}
           {project.liveDemo ? (
-            <Button href={project.liveDemo} target="_blank" rel="noreferrer" size="sm" className="gap-2">
-              <PlayCircle className="h-4 w-4" /> Demo
+            <Button
+              href={project.liveDemo}
+              target="_blank"
+              rel="noreferrer"
+              size="sm"
+              className="gap-2"
+              aria-label={`Open live demo of ${project.title} (opens in a new tab)`}
+            >
+              <PlayCircle className="h-4 w-4" aria-hidden="true" /> Demo
             </Button>
           ) : null}
-          <Button onClick={() => onOpenDetails(project)} variant="ghost" size="sm" className="gap-2">
-            Details <ArrowUpRight className="h-4 w-4" />
+          <Button
+            onClick={() => onOpenDetails(project)}
+            variant="ghost"
+            size="sm"
+            className="gap-2"
+            aria-label={`View details for ${project.title}`}
+          >
+            Details <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>
       </div>

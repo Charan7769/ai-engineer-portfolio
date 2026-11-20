@@ -16,7 +16,7 @@ export function FooterLinks() {
                         the homepage target instead of a fragment on the current page. */}
                     <a
                         href={isHomepage ? item.href : `/${item.href}`}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="inline-block py-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                         {item.name}
                     </a>
