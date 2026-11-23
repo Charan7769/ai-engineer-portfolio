@@ -59,7 +59,7 @@ export const siteConfig = {
 
   // Flipped to true only once a real resume PDF is placed at `resume`.
   // While false the download button is disabled instead of serving an empty file.
-  resumeAvailable: false,
+  resumeAvailable: true,
 };
 
 export type SiteConfig = typeof siteConfig;
